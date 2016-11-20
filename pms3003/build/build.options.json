@@ -1,0 +1,10 @@
+{
+  "builtInLibrariesFolders": "C:\\Program Files (x86)\\Arduino\\libraries",
+  "customBuildProperties": "build.warn_data_percentage=75",
+  "fqbn": "realtek:ameba:ameba_rtl8195a",
+  "hardwareFolders": "C:\\Program Files (x86)\\Arduino\\hardware,C:\\Users\\user\\AppData\\Local\\Arduino15\\packages",
+  "otherLibrariesFolders": "C:\\Users\\user\\Documents\\Ameba\\libraries",
+  "runtime.ide.version": "10607",
+  "sketchLocation": "D:\\arduino_prg\\IOT\\pms3003\\pms3003.ino",
+  "toolsFolders": "C:\\Program Files (x86)\\Arduino\\tools-builder,C:\\Program Files (x86)\\Arduino\\hardware\\tools\\avr,C:\\Users\\user\\AppData\\Local\\Arduino15\\packages"
+}
