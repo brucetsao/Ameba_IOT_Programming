@@ -3,6 +3,14 @@
 
 #include "RTClib.h"
 RTC_DS1307 RTC;
+void initRTC() ;
+String ShowDateTime() ;
+String  StrDate() ;
+String  StringDate(int yyy,int mmm,int ddd) ;
+String  StrTime() ;
+String  StringTime(int hhh,int mmm,int sss) ;
+String  print2digits(int number) ;
+String  print4digits(int number) ;
 
 
 
@@ -20,9 +28,10 @@ void loop() {
 }
 
 
+
 void initRTC()
 {
-     Wire.begin();
+     Wire1.begin();
     RTC.begin();
   if (! RTC.isrunning()) {
     Serial.println("RTC is NOT running!");

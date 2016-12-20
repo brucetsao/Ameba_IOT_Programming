@@ -1,13 +1,11 @@
 #include <WiFi.h>
 
-char ssid[] = "NQU_IOT";      // your network SSID (name)
-char pass[] = "12345678";     // your network password
+char ssid[] = "BruceSonyC5";      // your network SSID (name)
+char pass[] = "bruce1234";     // your network password
 int keyIndex = 0;                 // your network key Index number (needed only for WEP)
-
 int status = WL_IDLE_STATUS;
 WiFiServer server(80);
-
-#define RelayPin 8
+#define RelayPin 13
 #define Turnon HIGH
 #define Turnoff LOW
 
@@ -64,8 +62,10 @@ void loop() {
             client.println();
 
             // the content of the HTTP response follows the header:
-            client.print("Click <a href=\"/H\">here</a> turn Power on<br>");
-            client.print("Click <a href=\"/L\">here</a> turn Power off<br>");
+            client.print("Click <a href=\"/A\">here</a> turn Power on<br>");
+            client.print("Click <a href=\"/B\">here</a> turn Power off<br>");
+            client.print("Click <a href=\"/C\">here</a> turn Power off<br>");
+            client.print("Click <a href=\"/D\">here</a> turn Power off<br>");
 
             // The HTTP response ends with another blank line:
             client.println();

@@ -1,7 +1,7 @@
 #include <WiFi.h>
 
-char ssid[] = "Ameba"; //  your network SSID (name)
-char pass[] = "AP1234";    // your network password (use for WPA, or use as key for WEP)
+char ssid[] = "PM25";      // your network SSID (name)
+char pass[] = "qq12345678";     // your network password
 int keyIndex = 0;            // your network key Index number (needed only for WEP)
 
 int status = WL_IDLE_STATUS;

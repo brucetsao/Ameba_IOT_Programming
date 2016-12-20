@@ -1,19 +1,3 @@
-/*
-
- This example  prints the Wifi shield's MAC address, and
- scans for available Wifi networks using the Wifi shield.
- Every ten seconds, it scans again. It doesn't actually
- connect to any network, so no encryption scheme is specified.
-
- Circuit:
- * WiFi shield attached
-
- created 13 July 2010
- by dlf (Metodo2 srl)
- modified 21 Junn 2012
- by Tom Igoe and Jaymes Dec
- */
-
 
 #include <WiFi.h>
 
@@ -38,13 +22,14 @@ void setup() {
 
   // Print WiFi MAC address:
   printMacAddress();
+  
 }
 
 void loop() {
   // scan for existing networks:
   Serial.println("Scanning available networks...");
   listNetworks();
-  delay(10000);
+  delay(20000);
 }
 
 void printMacAddress() {

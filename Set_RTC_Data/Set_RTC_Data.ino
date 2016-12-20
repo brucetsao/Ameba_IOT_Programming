@@ -2,11 +2,20 @@
 #include "RTClib.h"
 RTC_DS1307 RTC;
 int mYear = 2016 ;
-int mMonth = 1 ;
-int mDay = 1 ;
-int mHour = 12 ;
-int mMinute = 12 ;
-int mSecond = 12 ;
+int mMonth = 11 ;
+int mDay = 29 ;
+int mHour = 13 ;
+int mMinute = 23 ;
+int mSecond = 29 ;
+void initRTC() ;
+String ShowDateTime() ;
+String  StrDate() ;
+String  StringDate(int yyy,int mmm,int ddd) ;
+String  StrTime() ;
+String  StringTime(int hhh,int mmm,int sss) ;
+String  print2digits(int number) ;
+String  print4digits(int number) ;
+
 void setup() {
 
   Serial.begin(9600);
@@ -25,7 +34,7 @@ void loop() {
 
 void initRTC()
 {
-     Wire.begin();
+     Wire1.begin();
     RTC.begin();
   if (! RTC.isrunning()) {
     Serial.println("RTC is NOT running!");
@@ -88,6 +97,5 @@ String  print4digits(int number) {
   ttt = String(number);
   return ttt ;
 }
-
 
 

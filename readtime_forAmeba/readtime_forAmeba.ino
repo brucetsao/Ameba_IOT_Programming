@@ -5,7 +5,7 @@ RTC_DS1307 RTC;
 
 void setup () {
     Serial.begin(9600);
-    Wire.begin();
+    Wire1.begin();
     RTC.begin();
   if (! RTC.isrunning()) {
     Serial.println("RTC is NOT running!");

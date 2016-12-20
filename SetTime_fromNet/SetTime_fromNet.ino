@@ -4,20 +4,12 @@ RTC_DS1307 RTC;
 // above is used for RTC
 #include "PMType.h"
 #include <WiFi.h>
-#include <PubSubClient.h>
 #include <WiFiUdp.h>
 //    Aboev is used for WIFI
 uint8_t MacData[6];
 
-char ssid[] = "TSAO_1F";      // your network SSID (name)
-char pass[] = "TSAO1234";     // your network password
-char server[] = "gpssensor.ddns.net"; // the MQTT server of LASS
-
-#define MAX_CLIENT_ID_LEN 10
-#define MAX_TOPIC_LEN     50
-char clientId[MAX_CLIENT_ID_LEN];
-char outTopic[MAX_TOPIC_LEN];
-
+char ssid[] = "BruceSonyC5";      // your network SSID (name)
+char pass[] = "bruce1234";     // your network password
 IPAddress  Meip , Megateway , Mesubnet ;
 String MacAddress ;
 int status = WL_IDLE_STATUS;
@@ -38,7 +30,25 @@ uint32_t epochSystem = 0; // timestamp of system boot up
 unsigned long epoch  ;
 int NDPyear, NDPmonth, NDPday, NDPhour, NDPminute, NDPsecond;
 // this is used for WIFI and NTP
-
+void ShowNTPDateTime() ;
+void ShowMac() ;
+void ShowInternetStatus() ;
+void initRTC() ;
+String ShowDateTime() ;
+String  StrDate() ;
+String  StringDate(int yyy,int mmm,int ddd) ;
+String  StrTime() ;
+String  StringTime(int hhh,int mmm,int sss) ;
+String  print2digits(int number) ;
+String  print4digits(int number) ;
+String GetWifiMac() ;
+String  print2HEX(int number) ;
+void retrieveNtpTime() ;
+void SetRTCTime( int yr, int mon, int dd, int hr, int mins, int secs) ;
+void getCurrentTime(unsigned long epoch, int *year, int *month, int *day, int *hour, int *minute, int *second) ;
+void getCurrentTime(unsigned long epoch, int *year, int *month, int *day, int *hour, int *minute, int *second)  ;
+void initializeWiFi() ;
+void printWifiData() ;
 
 void setup() {
   Serial.begin(9600);
@@ -106,7 +116,7 @@ void ShowInternetStatus()
 
 void initRTC()
 {
-  Wire.begin();
+  Wire1.begin();
   RTC.begin();
   if (! RTC.isrunning()) {
     Serial.println("RTC is NOT running!");
