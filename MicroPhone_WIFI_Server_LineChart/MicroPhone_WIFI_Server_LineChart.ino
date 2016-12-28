@@ -1,16 +1,12 @@
 #include <WiFi.h>
 // your network key Index number (needed only for WEP)
-
 //-------------- dht use
-#include "DHT.h"
-#define DHTPIN 8     // what digital pin we're connected to
 
+#define MicPIN A1     // what digital pin we're connected to
+  
+int data[100] ;
+int pos = 0 ;
 
-//#define DHTTYPE DHT11   // DHT 11
-#define DHTTYPE DHT22   // DHT 22  (AM2302), AM2321
-//#define DHTTYPE DHT21   // DHT 21 (AM2301)
-
-DHT dht(DHTPIN, DHTTYPE);
 
 //----wifi use
 uint8_t MacData[6];
@@ -24,20 +20,18 @@ int status = WL_IDLE_STATUS;
 WiFiServer server(80);
 
 //-----end of wifi use
-
 void setup()   /*----( SETUP: RUNS ONCE )----*/
 {
-  Serial.begin(9600);
+    Serial.begin(9600);
   Serial.println("DHTxx test!");
-  dht.begin();
-  if (WiFi.status() == WL_NO_SHIELD) {
+ if (WiFi.status() == WL_NO_SHIELD) {
     Serial.println("WiFi shield not present");
     // don't continue:
     while (true);
   }
   String fv = WiFi.firmwareVersion();
   if (fv != "1.1.0") {
-    Serial.println("Please upgrade the firmware");
+     Serial.println("Please upgrade the firmware");
   }
   MacAddress = GetWifiMac() ; // get MacAddress
   ShowMac() ;       //Show Mac Address
@@ -50,30 +44,19 @@ void setup()   /*----( SETUP: RUNS ONCE )----*/
 
 }// END Setup
 
-static int count = 0;
-void loop()
+static int count=0;
+void loop()   
 {
-  // Reading temperature or humidity takes about 250 milliseconds!
-  // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
-  float h = dht.readHumidity();
-  // Read temperature as Celsius (the default)
-  float t = dht.readTemperature();
-  // Read temperature as Fahrenheit (isFahrenheit = true)
-  float f = dht.readTemperature(true);
+  int micValue = map(analogRead(MicPIN),0,1023,0,255) ;
+   data[pos] = micValue ;
+   pos++  ;
 
-
-  Serial.print("Humidity: ");
-  Serial.print(h);
-  Serial.print(" % and ");
-  Serial.print("Temperature: ");
-  Serial.print(t);
-  Serial.print(" *C ");
-  Serial.print(f);
-  Serial.print(" *F\t\n");
-
-  // wifi code here
-  // listen for incoming clients
-  WiFiClient client = server.available();
+    delay(100) ;
+    if (pos >=100) 
+        {
+          pos = 0 ;
+        }
+    WiFiClient client = server.available();
   if (client)
   {
     Serial.println("Now Someone Access WebServer");
@@ -92,6 +75,11 @@ void loop()
         // so you can send a reply
         if (c == '\n' && currentLineIsBlank)
         {
+        // if you've gotten to the end of the line (received a newline
+        // character) and the line is blank, the http request has ended,
+        // so you can send a reply
+        if (c == '\n' && currentLineIsBlank)
+        {
           // send a standard http response header
           client.println("HTTP/1.1 200 OK");
           client.println("Content-Type: text/html");
@@ -100,60 +88,60 @@ void loop()
           client.println();
           client.println("<!DOCTYPE HTML>");
           client.println("<html>");
-          // output the value of each analog input pin
           client.println("<head>");
           client.println("<script type='text/javascript' src='https://www.gstatic.com/charts/loader.js'></script>");
           client.println("<script type='text/javascript'>");
-          client.println("google.charts.load('current', {'packages':['gauge']});");
+          client.println("google.charts.load('current', {'packages':['corechart']});");
           client.println("google.charts.setOnLoadCallback(drawChart);");
-          client.println("  function drawChart() {");
-          client.println("var data = google.visualization.arrayToDataTable([['Label', 'Value'],['濕度',");
-          client.println(h);
-          client.println("],]);");
-          client.println(" var options = {width: 300, height: 300,redFrom: 90, redTo: 100,yellowFrom:75, yellowTo: 90,minorTicks: 5};");
-          client.println("var chart = new google.visualization.Gauge(document.getElementById('chart_div'));");
+          
+          // output the value of each analog input pin
+          for (int i= 1 ; i <pos; i++)
+            {
+                client.println("['");
+                client.println(i);
+                client.println("',");
+                client.println(i);
+                client.println("']");
+               if (i < (pos-1) )
+                    client.println(",");
+            }
+             client.println("]);");
+             client.println("var options = {");
+          client.println("title: 'Sound Track',");
+          client.println("  curveType: 'function',");
+          client.println(" legend: { position: 'bottom' }");
+          client.println(" };");
+          client.println("var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));");
           client.println("chart.draw(data, options);");
           client.println("}");
           client.println("</script>");
           client.println("</head>");
           client.println("<meta charset='utf-8'>");
           client.println("<body>");
-          client.println("<div id='chart_div' style='width: 300px; height: 300px;'></div>");
+          client.println("<div id='curve_chart' style='width: 900px; height: 500px;'></div>");
           client.println("</body>");
-          /*
-            client.print("Humidity: ");
-            client.print(h);
-            client.print(" % and ");
-            client.print("Temperature: ");
-            client.print(t);
-            client.print("*C   and  ");
-            client.print(f);
-            client.print("*F  (end) ");
-            client.println("<br />");
-          */
+         
           client.println("</html>");
           break;
         }
-        if (c == '\n')
+      if (c == '\n')
         {
-          // you're starting a new line
-          currentLineIsBlank = true;
+              // you're starting a new line
+              currentLineIsBlank = true;
         } else if (c != '\r')
         {
           // you've gotten a character on the current line
           currentLineIsBlank = false;
         }
+        } 
       }
-    }
     // give the web browser time to receive the data
     delay(1);
 
     // close the connection:
     client.stop();
     Serial.println("client disonnected");
-  }
-
-
+  }   
     delay(800) ;
 } // END Loop
 

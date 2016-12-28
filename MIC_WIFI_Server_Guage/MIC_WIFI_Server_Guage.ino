@@ -1,16 +1,11 @@
 #include <WiFi.h>
 // your network key Index number (needed only for WEP)
 
-//-------------- dht use
-#include "DHT.h"
-#define DHTPIN 8     // what digital pin we're connected to
+
+#define micPin A1     // what digital pin we're connected to
 
 
-//#define DHTTYPE DHT11   // DHT 11
-#define DHTTYPE DHT22   // DHT 22  (AM2302), AM2321
-//#define DHTTYPE DHT21   // DHT 21 (AM2301)
 
-DHT dht(DHTPIN, DHTTYPE);
 
 //----wifi use
 uint8_t MacData[6];
@@ -29,7 +24,7 @@ void setup()   /*----( SETUP: RUNS ONCE )----*/
 {
   Serial.begin(9600);
   Serial.println("DHTxx test!");
-  dht.begin();
+
   if (WiFi.status() == WL_NO_SHIELD) {
     Serial.println("WiFi shield not present");
     // don't continue:
@@ -55,20 +50,14 @@ void loop()
 {
   // Reading temperature or humidity takes about 250 milliseconds!
   // Sensor readings may also be up to 2 seconds 'old' (its a very slow sensor)
-  float h = dht.readHumidity();
-  // Read temperature as Celsius (the default)
-  float t = dht.readTemperature();
-  // Read temperature as Fahrenheit (isFahrenheit = true)
-  float f = dht.readTemperature(true);
+  int h = map(analogRead(micPin),0,1023,0,100);
+      //   map(readvalue , orginalfrom , orginalto, newfrom, newto) ;
+  
 
 
-  Serial.print("Humidity: ");
+  Serial.print("Sound: ");
   Serial.print(h);
-  Serial.print(" % and ");
-  Serial.print("Temperature: ");
-  Serial.print(t);
-  Serial.print(" *C ");
-  Serial.print(f);
+
   Serial.print(" *F\t\n");
 
   // wifi code here
@@ -110,7 +99,7 @@ void loop()
           client.println("var data = google.visualization.arrayToDataTable([['Label', 'Value'],['濕度',");
           client.println(h);
           client.println("],]);");
-          client.println(" var options = {width: 300, height: 300,redFrom: 90, redTo: 100,yellowFrom:75, yellowTo: 90,minorTicks: 5};");
+          client.println(" var options = {width: 300, height: 300,redFrom: 85, redTo: 100,yellowFrom:65, yellowTo: 85,minorTicks: 5};");
           client.println("var chart = new google.visualization.Gauge(document.getElementById('chart_div'));");
           client.println("chart.draw(data, options);");
           client.println("}");
