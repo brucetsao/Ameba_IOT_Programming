@@ -100,7 +100,22 @@ void loop()
                       client.println();
                       client.println("<!DOCTYPE HTML>");
                       client.println("<html>");
-                      // output the value of each analog input pin
+                      client.println("<body>");
+                      client.println("<table width='400' border='2'>");
+                      client.println("<tr>");
+                      client.println("<td><div align='center'>濕度</div></td><td><div align='center'>溫度(。C)</div></td><td><div align='center'>溫度(。F)</div></td>");
+                      client.println("</tr>");
+                      client.println("<tr>");
+                      client.println("<td><div align='center'>");
+                      client.println(h);
+                      client.println("%</div></td><td><div align='center'>");
+                      client.println(t);
+                      client.println("。C</div></td><td><div align='center'>");
+                      client.println(f);
+                      client.println("。F</div></td>");
+                      client.println("</tr>");
+                        client.println("</table>");
+                    // output the value of each analog input pin
                        
                         client.print("Humidity: ");
                          client.print(h);
@@ -111,6 +126,7 @@ void loop()
                         client.print(f);
                         client.print("*F  (end) ");
                         client.println("<br />");
+                       client.println("<body>");                        
                         client.println("</html>");
                         break;
                  }
