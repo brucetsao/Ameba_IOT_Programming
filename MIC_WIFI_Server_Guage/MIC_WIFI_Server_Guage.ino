@@ -96,7 +96,7 @@ void loop()
           client.println("google.charts.load('current', {'packages':['gauge']});");
           client.println("google.charts.setOnLoadCallback(drawChart);");
           client.println("  function drawChart() {");
-          client.println("var data = google.visualization.arrayToDataTable([['Label', 'Value'],['濕度',");
+          client.println("var data = google.visualization.arrayToDataTable([['Label', 'Value'],['聲音',");
           client.println(h);
           client.println("],]);");
           client.println(" var options = {width: 300, height: 300,redFrom: 85, redTo: 100,yellowFrom:65, yellowTo: 85,minorTicks: 5};");

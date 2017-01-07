@@ -1,6 +1,6 @@
 //-------------- dht use
 #include "DHT.h"
-#define DHTPIN 8     // what digital pin we're connected to
+#define DHTPIN 7     // what digital pin we're connected to
 
 
 //#define DHTTYPE DHT11   // DHT 11
@@ -41,6 +41,6 @@ void loop()
   Serial.print(" *F\t\n");
 
   
-  delay(2000);
+  delay(1000);
 } // END Loop
 
