@@ -2,7 +2,7 @@
 #include <Matrix.h>
 
 //                  DIN, CLK, LOAD, #chips
-Matrix myLeds = Matrix(4, 5, 6, 3);
+Matrix myLeds = Matrix(4, 8, 9, 10);
 
 Sprite letter_L = Sprite(5, 8,
   B11000,

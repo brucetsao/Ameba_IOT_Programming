@@ -1,10 +1,10 @@
 #include <LedControlNew.h>
 
- #define DinPin 8
+ #define DinPin 4
  #define CsPin 5
  #define ClkPin 6
- #define chipno 4
- #define chips 8
+ #define chipno 0
+ #define chips 12
 
  
 //LedControl lc=LedControl(12,10,11,9);
@@ -23,7 +23,7 @@ void setup() {
    Serial.begin(9600) ;
    Serial.println(showword);
  
-   for(int i=0;i<4;i++)
+   for(int i=0;i<chips;i++)
  { 
   lc.shutdown(i,false);
   /* Set the brightness to a medium values */

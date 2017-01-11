@@ -1,9 +1,9 @@
 #include <LedControl.h>
 #include "Alpha_Table.h"
 
- #define DinPin 4
- #define CsPin 5
- #define ClkPin 6
+ #define DinPin 8
+ #define CsPin 9
+ #define ClkPin 10
  #define chipno 0 
 LedControl lc=LedControl(DinPin,ClkPin,CsPin,chipno); 
 

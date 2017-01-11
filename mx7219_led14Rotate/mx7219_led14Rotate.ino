@@ -1,8 +1,8 @@
 #include <LedControl.h>
 
-  #define DinPin 4
- #define CsPin 5
- #define ClkPin 6
+  #define DinPin 8
+ #define CsPin 10
+ #define ClkPin 9
  #define chipno 4
  #define chips 4
 
